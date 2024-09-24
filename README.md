@@ -1,0 +1,1 @@
+# academic-management-platform-backend
