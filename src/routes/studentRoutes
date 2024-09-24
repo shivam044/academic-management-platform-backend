@@ -1,0 +1,7 @@
+const express = require('express');
+const { createStudent } = require('../controllers/studentController');  // Adjusted path
+const router = express.Router();
+
+router.post('/students', createStudent);
+
+module.exports = router;
