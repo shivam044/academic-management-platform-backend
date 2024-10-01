@@ -31,3 +31,12 @@ export const signIn = async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 };
+
+export const signUp = async (req, res) => { 
+  const request = req.body;
+  try {
+    console.log(request);
+  } catch (error) {
+    console.log(error)
+  }
+}
