@@ -33,9 +33,9 @@ export const signIn = async (req, res) => {
 };
 
 export const signUp = async (req, res) => { 
-  const request = req.body;
+  const { email, password, username } = req.body;
   try {
-    console.log(request);
+    // const existingUser = 
   } catch (error) {
     console.log(error)
   }
