@@ -13,5 +13,6 @@ const gradeSchema = new Schema({
     updated_at: { type: Date, default: Date.now }
 });
 
-const Grade = mongoose.model('Grade', GradeSchema);
+const Grade = mongoose.model('Grade', gradeSchema);
+
 export default Grade;

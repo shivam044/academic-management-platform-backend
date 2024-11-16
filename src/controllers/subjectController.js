@@ -1,9 +1,8 @@
-// Import necessary modules
 import Subject from '../models/subject.js';
 import User from '../models/user.js';
 
 // Create a new subject
-export const createSubject = async (req, res) => {
+const createSubject = async (req, res) => {
   try {
     const { subjectTitle, targetGrade, uid, t_uid } = req.body;
     // Check if the user exists
@@ -27,7 +26,7 @@ export const createSubject = async (req, res) => {
 };
 
 // Get all subjects for a specific user (student)
-export const getSubjectsByUser = async (req, res) => {
+const getSubjectsByUser = async (req, res) => {
   try {
     const { userId } = req.params;
     const user = await User.findById(userId);
@@ -42,7 +41,7 @@ export const getSubjectsByUser = async (req, res) => {
 };
 
 // Get a specific subject by ID
-export const getSubjectById = async (req, res) => {
+const getSubjectById = async (req, res) => {
   try {
     const { id } = req.params;
     const subject = await Subject.findById(id).populate('t_uid', 'firstName lastName email'); // Populate teacher info
@@ -55,8 +54,18 @@ export const getSubjectById = async (req, res) => {
   }
 };
 
+// Get all subjects
+const getAllSubjects = async (req, res) => {
+  try {
+    const subjects = await Subject.find().populate('t_uid', 'firstName lastName email'); // Populate teacher info
+    res.status(200).json(subjects);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching subjects', error: error.message });
+  }
+};
+
 // Update a specific subject
-export const updateSubject = async (req, res) => {
+const updateSubject = async (req, res) => {
   try {
     const { id } = req.params;
     const { subjectTitle, targetGrade, t_uid } = req.body;
@@ -81,7 +90,7 @@ export const updateSubject = async (req, res) => {
 };
 
 // Delete a specific subject
-export const deleteSubject = async (req, res) => {
+const deleteSubject = async (req, res) => {
   try {
     const { id } = req.params;
     const deletedSubject = await Subject.findByIdAndDelete(id);
@@ -93,3 +102,6 @@ export const deleteSubject = async (req, res) => {
     res.status(500).json({ message: 'Error deleting subject', error: error.message });
   }
 };
+
+
+export default {createSubject, getSubjectsByUser, getSubjectById, getAllSubjects, updateSubject, deleteSubject};

@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
-const AssignmentSchema = new Schema({
+const assignmentSchema = new Schema({
     name: { type: String, required: true }, // Assignment Name
     s_id: { type: Schema.Types.ObjectId, ref: 'Subject' }, // Reference to Subject
     uid: { type: Schema.Types.ObjectId, ref: 'User' }, // Reference to User (Student)
@@ -11,5 +11,5 @@ const AssignmentSchema = new Schema({
     updated_at: { type: Date, default: Date.now }
 });
 
-const Assignment = mongoose.model('Assignment', AssignmentSchema);
+const Assignment = mongoose.model('Assignment', assignmentSchema);
 export default Assignment;

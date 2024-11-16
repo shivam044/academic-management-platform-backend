@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
-const SubjectSchema = new Schema({
+const subjectSchema = new Schema({
     subjectTitle: { type: String, required: true },
     targetGrade: { type: Number },               //Target Grade for the subject
     uid: { type: Schema.Types.ObjectId, ref: 'User' },     // Reference to User (Student)
@@ -11,5 +11,5 @@ const SubjectSchema = new Schema({
 });
 
 
-const Subject = mongoose.model('Subject', SubjectSchema);
+const Subject = mongoose.model('Subject', subjectSchema);
 export default Subject;
