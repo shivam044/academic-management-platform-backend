@@ -26,7 +26,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // Middleware
 app.use(express.json());
-app.use(cors());
+app.use(cors({ origin: 'http://localhost:5173' })); // Replace with frontend's URL
 
 //API routes
 app.use('/', authRoutes);
