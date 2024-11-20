@@ -13,8 +13,6 @@ import teacherRoutes from './routes/teacherRoutes.js';
 import semesterRoutes from './routes/semesterRoutes.js'; 
 import timeTableRoutes from './routes/timetableRoutes.js'; 
 
-
-
 // Load environment variables from .env file
 dotenv.config();
 
@@ -23,7 +21,6 @@ const app = express();
 
 // Connect to MongoDB
 connectDB();
-
 
 // Set up Swagger UI
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
@@ -41,10 +38,6 @@ app.use('/', userRoutes);
 app.use('/', teacherRoutes);
 app.use('/', semesterRoutes);
 app.use('/', timeTableRoutes);
-
-
-
-
 
 // Error handling middleware
 app.use((err, req, res, next) => {

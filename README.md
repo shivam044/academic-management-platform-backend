@@ -1,5 +1,5 @@
 # API Routes Documentation
-## Swagger Documentation At /api-docs
+## Swagger Documentation At `/api-docs`
 
 ## Assignment Routes
 1. **Create a New Assignment** (POST)
@@ -33,7 +33,6 @@
    - **Middleware**: `auth.requireSignin`
 
 ## Grade Routes
-
 1. **Create a New Grade** (POST)
    - **Endpoint**: `/api/grade`
    - **Description**: Creates a new grade.
@@ -65,7 +64,6 @@
    - **Middleware**: `auth.requireSignin`
 
 ## Subject Routes
-
 1. **Create a New Subject** (POST)
    - **Endpoint**: `/api/subject`
    - **Description**: Creates a new subject.
@@ -97,7 +95,6 @@
    - **Middleware**: `auth.requireSignin`
 
 ## User Routes
-
 1. **Create a New User** (POST)
    - **Endpoint**: `/api/user`
    - **Description**: Creates a new user.
@@ -123,3 +120,85 @@
    - **Description**: Lists all users.
    - **Middleware**: `auth.requireSignin`
 
+## Teacher Routes
+1. **Create a New Teacher** (POST)
+   - **Endpoint**: `/api/teacher`
+   - **Description**: Creates a new teacher.
+   - **Middleware**: `auth.requireSignin`
+
+2. **Get a Specific Teacher by ID** (GET)
+   - **Endpoint**: `/api/teachers/:id`
+   - **Description**: Retrieves a teacher by their ID.
+   - **Middleware**: `auth.requireSignin`
+
+3. **Update a Specific Teacher** (PUT)
+   - **Endpoint**: `/api/teachers/:id`
+   - **Description**: Updates a teacher by their ID.
+   - **Middleware**: `auth.requireSignin`
+
+4. **Delete a Specific Teacher** (DELETE)
+   - **Endpoint**: `/api/teachers/:id`
+   - **Description**: Deletes a teacher by their ID.
+   - **Middleware**: `auth.requireSignin`
+
+5. **List All Teachers** (GET)
+   - **Endpoint**: `/api/teachers`
+   - **Description**: Lists all teachers.
+   - **Middleware**: `auth.requireSignin`
+
+## Semester Routes
+1. **Create a New Semester** (POST)
+   - **Endpoint**: `/api/semester`
+   - **Description**: Creates a new semester.
+   - **Middleware**: `auth.requireSignin`
+
+2. **Get a Specific Semester by ID** (GET)
+   - **Endpoint**: `/api/semesters/:id`
+   - **Description**: Retrieves a semester by its ID.
+   - **Middleware**: `auth.requireSignin`
+
+3. **Update a Specific Semester** (PUT)
+   - **Endpoint**: `/api/semesters/:id`
+   - **Description**: Updates a semester by its ID.
+   - **Middleware**: `auth.requireSignin`
+
+4. **Delete a Specific Semester** (DELETE)
+   - **Endpoint**: `/api/semesters/:id`
+   - **Description**: Deletes a semester by its ID.
+   - **Middleware**: `auth.requireSignin`
+
+5. **List All Semesters** (GET)
+   - **Endpoint**: `/api/semesters`
+   - **Description**: Lists all semesters.
+   - **Middleware**: `auth.requireSignin`
+
+## TimeTable Routes
+1. **Create a New TimeTable Entry** (POST)
+   - **Endpoint**: `/api/timetable`
+   - **Description**: Creates a new timetable entry.
+   - **Middleware**: `auth.requireSignin`
+
+2. **Get a Specific TimeTable Entry by ID** (GET)
+   - **Endpoint**: `/api/timetable/:id`
+   - **Description**: Retrieves a timetable entry by its ID.
+   - **Middleware**: `auth.requireSignin`
+
+3. **Update a Specific TimeTable Entry** (PUT)
+   - **Endpoint**: `/api/timetable/:id`
+   - **Description**: Updates a timetable entry by its ID.
+   - **Middleware**: `auth.requireSignin`
+
+4. **Delete a Specific TimeTable Entry** (DELETE)
+   - **Endpoint**: `/api/timetable/:id`
+   - **Description**: Deletes a timetable entry by its ID.
+   - **Middleware**: `auth.requireSignin`
+
+5. **Get TimeTable Entries by User** (GET)
+   - **Endpoint**: `/api/timetable/user/:userId`
+   - **Description**: Retrieves all timetable entries for a specific user.
+   - **Middleware**: `auth.requireSignin`
+
+6. **List All TimeTable Entries** (GET)
+   - **Endpoint**: `/api/timetable`
+   - **Description**: Lists all timetable entries.
+   - **Middleware**: `auth.requireSignin`
