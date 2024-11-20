@@ -4,20 +4,13 @@ import User from '../models/user.js';
 // Create a new subject
 const createSubject = async (req, res) => {
   try {
-    const { subjectTitle, targetGrade, uid, t_uid } = req.body;
+    const { subjectTitle, targetGrade, uid, t_uid, semester_id, room } = req.body;
     // Check if the user exists
     const user = await User.findById(uid);
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }
-    // Check if the teacher exists
-    if (t_uid) {
-      const teacher = await User.findById(t_uid);
-      if (!teacher) {
-        return res.status(404).json({ message: 'Teacher not found' });
-      }
-    }
-    const newSubject = new Subject({ subjectTitle, targetGrade, uid, t_uid });
+    const newSubject = new Subject({ subjectTitle, targetGrade, uid, t_uid, semester_id, room });
     const savedSubject = await newSubject.save();
     res.status(201).json(savedSubject);
   } catch (error) {
@@ -33,7 +26,7 @@ const getSubjectsByUser = async (req, res) => {
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }
-    const subjects = await Subject.find({ uid: userId }).populate('t_uid', 'firstName lastName email'); // Populate teacher info
+    const subjects = await Subject.find({ uid: userId }).populate('t_uid', 'firstName lastName email').populate('semester_id', 'name'); // Populate teacher and semester info
     res.status(200).json(subjects);
   } catch (error) {
     res.status(500).json({ message: 'Error fetching subjects', error: error.message });
@@ -44,7 +37,7 @@ const getSubjectsByUser = async (req, res) => {
 const getSubjectById = async (req, res) => {
   try {
     const { id } = req.params;
-    const subject = await Subject.findById(id).populate('t_uid', 'firstName lastName email'); // Populate teacher info
+    const subject = await Subject.findById(id).populate('t_uid', 'firstName lastName email').populate('semester_id', 'name'); // Populate teacher and semester info
     if (!subject) {
       return res.status(404).json({ message: 'Subject not found' });
     }
@@ -57,7 +50,7 @@ const getSubjectById = async (req, res) => {
 // Get all subjects
 const getAllSubjects = async (req, res) => {
   try {
-    const subjects = await Subject.find().populate('t_uid', 'firstName lastName email'); // Populate teacher info
+    const subjects = await Subject.find().populate('t_uid', 'firstName lastName email').populate('semester_id', 'name'); // Populate teacher and semester info
     res.status(200).json(subjects);
   } catch (error) {
     res.status(500).json({ message: 'Error fetching subjects', error: error.message });
@@ -68,16 +61,10 @@ const getAllSubjects = async (req, res) => {
 const updateSubject = async (req, res) => {
   try {
     const { id } = req.params;
-    const { subjectTitle, targetGrade, t_uid } = req.body;
-    if (t_uid) {
-      const teacher = await User.findById(t_uid);
-      if (!teacher) {
-        return res.status(404).json({ message: 'Teacher not found' });
-      }
-    }
+    const { subjectTitle, targetGrade, t_uid, semester_id, room } = req.body;
     const updatedSubject = await Subject.findByIdAndUpdate(
       id,
-      { subjectTitle, targetGrade, t_uid, updated_at: Date.now() },
+      { subjectTitle, targetGrade, t_uid, semester_id, room, updated_at: Date.now() },
       { new: true }
     );
     if (!updatedSubject) {
@@ -102,6 +89,5 @@ const deleteSubject = async (req, res) => {
     res.status(500).json({ message: 'Error deleting subject', error: error.message });
   }
 };
-
 
 export default {createSubject, getSubjectsByUser, getSubjectById, getAllSubjects, updateSubject, deleteSubject};
