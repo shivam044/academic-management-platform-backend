@@ -29,7 +29,7 @@ const subjectRouter = express.Router();
  */
 subjectRouter.post('/api/subject', auth.requireSignin, subjectCtrl.createSubject);
 
-// Route to get a specific subject by ID
+// Route to get, update, or delete a specific subject by ID
 /**
  * @swagger
  * /api/subjects/{id}:
@@ -45,7 +45,7 @@ subjectRouter.post('/api/subject', auth.requireSignin, subjectCtrl.createSubject
  *         description: The subject ID
  *     responses:
  *       200:
- *         description: The subject description by ID
+ *         description: The subject details
  *         content:
  *           application/json:
  *             schema:
@@ -104,7 +104,7 @@ subjectRouter.route('/api/subjects/:id')
   .put(auth.requireSignin, subjectCtrl.updateSubject)
   .delete(auth.requireSignin, subjectCtrl.deleteSubject);
 
-// Route to get subjects by user
+// Route to get subjects by user ID
 /**
  * @swagger
  * /api/subjects/user/{userId}:

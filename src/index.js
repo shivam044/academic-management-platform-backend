@@ -11,6 +11,8 @@ import gradeRoutes from './routes/gradeRoutes.js';
 import assignmentRoutes from './routes/assignmentRoutes.js'; 
 import teacherRoutes from './routes/teacherRoutes.js'; 
 import semesterRoutes from './routes/semesterRoutes.js'; 
+import timeTableRoutes from './routes/timetableRoutes.js'; 
+
 
 
 // Load environment variables from .env file
@@ -38,6 +40,8 @@ app.use('/', assignmentRoutes);
 app.use('/', userRoutes);
 app.use('/', teacherRoutes);
 app.use('/', semesterRoutes);
+app.use('/', timeTableRoutes);
+
 
 
 
