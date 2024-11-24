@@ -7,7 +7,7 @@ import Assignment from '../models/assignment.js';
 // Create a new grade
 const createGrade = async (req, res) => {
   try {
-    const { grade, s_id, a_id, uid, notes } = req.body;
+    const { grade, s_id, a_id, uid, notes, outOf } = req.body;
     // Check if the user (student) exists
     const user = await User.findById(uid);
     if (!user) {
@@ -25,7 +25,7 @@ const createGrade = async (req, res) => {
         return res.status(404).json({ message: 'Assignment not found' });
       }
     }
-    const newGrade = new Grade({ grade, s_id, a_id, uid, notes });
+    const newGrade = new Grade({ grade, s_id, a_id, uid, notes, outOf });
     const savedGrade = await newGrade.save();
     res.status(201).json(savedGrade);
   } catch (error) {
@@ -76,7 +76,7 @@ const getAllGrades = async (req, res) => {
 const updateGrade = async (req, res) => {
   try {
     const { id } = req.params;
-    const { grade, s_id, a_id, notes } = req.body;
+    const { grade, s_id, a_id, notes, outOf } = req.body;
     if (s_id) {
       const subject = await Subject.findById(s_id);
       if (!subject) {
@@ -91,7 +91,7 @@ const updateGrade = async (req, res) => {
     }
     const updatedGrade = await Grade.findByIdAndUpdate(
       id,
-      { grade, s_id, a_id, notes, updated_at: Date.now() },
+      { grade, s_id, a_id, notes, outOf, updated_at: Date.now() },
       { new: true }
     );
     if (!updatedGrade) {

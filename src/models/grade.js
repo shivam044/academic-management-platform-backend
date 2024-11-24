@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 const gradeSchema = new Schema({
 
     grade: { type: Number, required: true },
+    outOf: { type: Number, required: true },
     s_id: { type: Schema.Types.ObjectId, ref: 'Subject' }, // Reference ID to Subject
     a_id: { type: Schema.Types.ObjectId, ref: 'Assignment' }, // Reference ID to Assignment
     uid: { type: Schema.Types.ObjectId, ref: 'User' }, // Reference to User (Student)
