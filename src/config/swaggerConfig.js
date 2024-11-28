@@ -66,6 +66,7 @@ const swaggerDefinition = {
         required: ['grade', 's_id', 'uid'],
         properties: {
           grade: { type: 'number', description: 'The grade value' },
+          outOf: { type: 'number', description: 'The max value of the grade' },
           s_id: { type: 'string', description: 'Reference ID to the Subject' },
           a_id: { type: 'string', description: 'Reference ID to the Assignment' },
           uid: { type: 'string', description: 'Reference to the student user ID' },
@@ -76,6 +77,7 @@ const swaggerDefinition = {
         },
         example: {
           grade: 85,
+          outOf: 100,
           s_id: '60d0fe4f5311236168a109cc',
           a_id: '60d0fe4f5311236168a109cd',
           uid: '60d0fe4f5311236168a109ca',
@@ -165,6 +167,26 @@ const swaggerDefinition = {
           t_uid: '60d0fe4f5311236168a109cb',
           note: 'Bring lab materials',
           uid: '60d0fe4f5311236168a109ca',
+        },
+      },
+      Notification: {
+        type: 'object',
+        required: ['title', 'message', 'uid', 'type'],
+        properties: {
+          title: { type: 'string', description: 'The title of the notification' },
+          message: { type: 'string', description: 'The message body of the notification' },
+          uid: { type: 'string', description: 'Reference to the user ID who is receiving the notification' },
+          type: { type: 'string', description: 'Type of notification (e.g., informational, alert, etc.)' },
+          read: { type: 'boolean', description: 'Indicates if the notification has been read', default: false },
+          created_at: { type: 'string', format: 'date-time', description: 'Creation date' },
+          updated_at: { type: 'string', format: 'date-time', description: 'Last update date' },
+        },
+        example: {
+          title: 'New Grade Added',
+          message: 'A new grade has been added to your profile.',
+          uid: '60d0fe4f5311236168a109ca',
+          type: 'info',
+          read: false,
         },
       },
     },

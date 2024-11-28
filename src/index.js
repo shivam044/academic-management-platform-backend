@@ -12,6 +12,7 @@ import assignmentRoutes from './routes/assignmentRoutes.js';
 import teacherRoutes from './routes/teacherRoutes.js'; 
 import semesterRoutes from './routes/semesterRoutes.js'; 
 import timeTableRoutes from './routes/timetableRoutes.js'; 
+import notificationRoutes from './routes/notificationRoutes.js'; 
 
 // Load environment variables from .env file
 dotenv.config();
@@ -38,6 +39,7 @@ app.use('/', userRoutes);
 app.use('/', teacherRoutes);
 app.use('/', semesterRoutes);
 app.use('/', timeTableRoutes);
+app.use('/', notificationRoutes);
 
 // Error handling middleware
 app.use((err, req, res, next) => {
@@ -49,16 +51,15 @@ app.use((err, req, res, next) => {
   }
 });
 
-// Sample Route
 app.get('/', (req, res) => {
   res.send('Academic Management Platform Backend is running');
 });
-
 
 // Catch-all route for handling 404 errors
 app.use((req, res) => {
   res.status(404).send('Resource not found');
 });
+
 // Start the server
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
