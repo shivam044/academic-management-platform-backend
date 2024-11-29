@@ -14,6 +14,7 @@ import teacherRoutes from './routes/teacherRoutes.js';
 import semesterRoutes from './routes/semesterRoutes.js'; 
 import timeTableRoutes from './routes/timetableRoutes.js'; 
 import notificationRoutes from './routes/notificationRoutes.js'; 
+import eventRoutes from './routes/eventRoutes.js'; 
 
 // Load environment variables from .env file
 dotenv.config();
@@ -42,6 +43,7 @@ app.use('/', teacherRoutes);
 app.use('/', semesterRoutes);
 app.use('/', timeTableRoutes);
 app.use('/', notificationRoutes);
+app.use('/', eventRoutes);
 
 // Error handling middleware
 app.use((err, req, res, next) => {
