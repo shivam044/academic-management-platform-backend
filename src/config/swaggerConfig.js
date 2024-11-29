@@ -6,7 +6,7 @@ const swaggerDefinition = {
   openapi: '3.0.0',
   info: {
     title: 'Academic Management API',
-    version: '1.0.0',
+    version: '1.0.5',
     description: 'API Documentation for Academic Management Platform',
   },
   servers: [
@@ -187,6 +187,55 @@ const swaggerDefinition = {
           uid: '60d0fe4f5311236168a109ca',
           type: 'info',
           read: false,
+        },
+
+      },
+      UserSettings: {
+        type: 'object',
+        required: ['uid'],
+        properties: {
+          uid: {
+            type: 'string',
+            description: 'The user ID associated with these settings',
+          },
+          preferences: {
+            type: 'object',
+            description: 'User preferences including language, theme, etc.',
+            properties: {
+              theme: {
+                type: 'string',
+                description: 'Theme preference (e.g., dark, light)',
+              },
+              notificationsEnabled: {
+                type: 'boolean',
+                description: 'Indicates if the user wants to receive notifications',
+              },
+              language: {
+                type: 'string',
+                description: 'Language preference of the user',
+              },
+            },
+          },
+          created_at: {
+            type: 'string',
+            format: 'date-time',
+            description: 'Creation date of the user settings',
+          },
+          updated_at: {
+            type: 'string',
+            format: 'date-time',
+            description: 'Last update date of the user settings',
+          },
+        },
+        example: {
+          uid: '60d0fe4f5311236168a109ca',
+          preferences: {
+            theme: 'dark',
+            notificationsEnabled: true,
+            language: 'en',
+          },
+          created_at: '2024-01-01T00:00:00.000Z',
+          updated_at: '2024-01-02T00:00:00.000Z',
         },
       },
     },
