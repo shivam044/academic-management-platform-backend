@@ -29,6 +29,22 @@ const getAllNotifications = async (req, res) => {
   }
 };
 
+// Get all notifications for a specific user
+const getNotificationsByUser = async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    const notifications = await Notification.find({ uid: userId })
+      .populate('uid', 'firstName lastName email'); // Populate user info
+    res.status(200).json(notifications);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching notifications', error: error.message });
+  }
+};
+
 // Get a specific notification by ID
 const getNotificationById = async (req, res) => {
   try {
@@ -94,4 +110,4 @@ const markNotificationAsRead = async (req, res) => {
   }
 };
 
-export default { createNotification, getAllNotifications, getNotificationById, updateNotification, deleteNotification, markNotificationAsRead };
+export default { createNotification, getAllNotifications, getNotificationById, updateNotification, deleteNotification, markNotificationAsRead, getNotificationsByUser };

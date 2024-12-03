@@ -29,13 +29,20 @@ const notificationRouter = express.Router();
  */
 notificationRouter.post('/api/notification', auth.requireSignin, notificationCtrl.createNotification);
 
-// Route to get all notifications for a user
+// Route to get all notifications for a specific user
 /**
  * @swagger
- * /api/notifications:
+ * /api/notifications/user/{userId}:
  *   get:
- *     summary: Get all notifications for the logged-in user
+ *     summary: Get all notifications for a specific user
  *     tags: [Notifications]
+ *     parameters:
+ *       - in: path
+ *         name: userId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The user ID
  *     responses:
  *       200:
  *         description: A list of all notifications for the user
@@ -45,11 +52,12 @@ notificationRouter.post('/api/notification', auth.requireSignin, notificationCtr
  *               type: array
  *               items:
  *                 $ref: '#/components/schemas/Notification'
+ *       404:
+ *         description: User not found
  *       500:
  *         description: Server error
  */
-notificationRouter.route('/api/notifications')
-  .get(auth.requireSignin, notificationCtrl.getAllNotifications);
+notificationRouter.get('/api/notifications/user/:userId', auth.requireSignin, notificationCtrl.getNotificationsByUser);
 
 // Route to get, update, or delete a specific notification by ID
 /**

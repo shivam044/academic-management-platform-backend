@@ -5,15 +5,33 @@ import Subject from '../models/subject.js';
 import Grade from '../models/grade.js';
 import Assignment from '../models/assignment.js';
 
-// Create a new event
+/**
+ * Create a new event.
+ * 
+ * @async
+ * @function createEvent
+ * @param {Object} req - Express request object.
+ * @param {Object} req.body - The request body containing event information.
+ * @param {string} req.body.name - Name of the event.
+ * @param {string} req.body.type - Type of the event ('Assignment', 'Exam', 'Reminder').
+ * @param {string} [req.body.description] - Description of the event (optional).
+ * @param {Date} req.body.date - Date of the event.
+ * @param {Schema.Types.ObjectId} req.body.user_id - ID of the user associated with the event.
+ * @param {Schema.Types.ObjectId} [req.body.related_id] - ID of the related model (optional).
+ * @param {string} [req.body.relatedModel] - The related model type ('Subject', 'Grade', 'Assignment') (optional).
+ * @param {Object} res - Express response object.
+ * @returns {Promise<void>} Response with the created event or an error message.
+ */
 const createEvent = async (req, res) => {
   try {
     const { name, type, description, date, user_id, related_id, relatedModel } = req.body;
+
     // Check if the user exists
     const user = await User.findById(user_id);
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }
+
     // Validate related model if provided
     if (related_id && relatedModel) {
       let relatedEntity;
@@ -34,6 +52,7 @@ const createEvent = async (req, res) => {
         return res.status(404).json({ message: `${relatedModel} not found` });
       }
     }
+
     const newEvent = new Event({ name, type, description, date, user_id, related_id, relatedModel });
     const savedEvent = await newEvent.save();
     res.status(201).json(savedEvent);
@@ -42,7 +61,15 @@ const createEvent = async (req, res) => {
   }
 };
 
-// Get all events
+/**
+ * Get all events.
+ * 
+ * @async
+ * @function getAllEvents
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ * @returns {Promise<void>} Response with all events or an error message.
+ */
 const getAllEvents = async (req, res) => {
   try {
     const events = await Event.find().populate('user_id', 'firstName lastName email');
@@ -52,7 +79,17 @@ const getAllEvents = async (req, res) => {
   }
 };
 
-// Get a specific event by ID
+/**
+ * Get a specific event by ID.
+ * 
+ * @async
+ * @function getEventById
+ * @param {Object} req - Express request object.
+ * @param {Object} req.params - The request parameters.
+ * @param {string} req.params.id - ID of the event to fetch.
+ * @param {Object} res - Express response object.
+ * @returns {Promise<void>} Response with the event data or an error message.
+ */
 const getEventById = async (req, res) => {
   try {
     const { id } = req.params;
@@ -66,11 +103,23 @@ const getEventById = async (req, res) => {
   }
 };
 
-// Update a specific event
+/**
+ * Update a specific event.
+ * 
+ * @async
+ * @function updateEvent
+ * @param {Object} req - Express request object.
+ * @param {Object} req.params - The request parameters.
+ * @param {string} req.params.id - ID of the event to update.
+ * @param {Object} req.body - The request body containing updated event information.
+ * @param {Object} res - Express response object.
+ * @returns {Promise<void>} Response with the updated event or an error message.
+ */
 const updateEvent = async (req, res) => {
   try {
     const { id } = req.params;
     const { name, type, description, date, related_id, relatedModel } = req.body;
+
     // Validate related model if provided
     if (related_id && relatedModel) {
       let relatedEntity;
@@ -91,6 +140,7 @@ const updateEvent = async (req, res) => {
         return res.status(404).json({ message: `${relatedModel} not found` });
       }
     }
+
     const updatedEvent = await Event.findByIdAndUpdate(
       id,
       { name, type, description, date, related_id, relatedModel, updated_at: Date.now() },
@@ -105,7 +155,17 @@ const updateEvent = async (req, res) => {
   }
 };
 
-// Delete a specific event
+/**
+ * Delete a specific event.
+ * 
+ * @async
+ * @function deleteEvent
+ * @param {Object} req - Express request object.
+ * @param {Object} req.params - The request parameters.
+ * @param {string} req.params.id - ID of the event to delete.
+ * @param {Object} res - Express response object.
+ * @returns {Promise<void>} Response with deletion success message or an error message.
+ */
 const deleteEvent = async (req, res) => {
   try {
     const { id } = req.params;
